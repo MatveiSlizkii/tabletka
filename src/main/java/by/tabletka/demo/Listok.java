@@ -10,11 +10,11 @@ public class Listok {
     public static void main(String[] args) {
 
         List<Receipt> list = new ArrayList<>();
-        list.add(new Receipt("Иммунозин №30 500мг","https://tabletka.by/result?ls=17447"));
-        list.add(new Receipt("Иммунозин №1 250мг/5мл","https://tabletka.by/result?ls=19159"));
-        list.add(new Receipt("Иммунозин №50 500мг","https://tabletka.by/result?ls=18671"));
+        list.add(new Receipt("Иммунозин №30 500мг", "https://tabletka.by/result?ls=17447"));
+        list.add(new Receipt("Иммунозин №1 250мг/5мл", "https://tabletka.by/result?ls=19159"));
+        list.add(new Receipt("Иммунозин №50 500мг", "https://tabletka.by/result?ls=18671"));
         FindMaxPrice f = new FindMaxPrice();
-        list.forEach((o)-> {
+        list.forEach((o) -> {
             try {
                 System.out.println(o.getUrl());
                 o.setMaxPrice(f.findMaxPrice(o));
@@ -23,7 +23,6 @@ public class Listok {
             }
         });
         list.forEach(System.out::println);
-
 
 
     }
