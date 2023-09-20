@@ -1,6 +1,6 @@
 package by.tabletka.demo;
 
-import by.tabletka.demo.norm.Medicine;
+import by.tabletka.demo.newVersion.models.Medicine;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.FileInputStream;
@@ -24,7 +24,6 @@ public class ExcelWork {
         XSSFSheet sheet = workbook.getSheetAt(0);
         List<Medicine> medicineList = new ArrayList<>();
         // Итерируемся по строкам листа
-        int j = 1;
         for (int rowNum = 2; rowNum <= sheet.getLastRowNum(); rowNum++) {
             // Получаем строку
             XSSFRow row = sheet.getRow(rowNum);
@@ -47,13 +46,13 @@ public class ExcelWork {
             if (cellB.getStringCellValue().isEmpty() && cellC.getStringCellValue().isEmpty()) {
                 continue;
             }
-            Medicine medicine = Medicine.builder()
-                    .name(name.replaceAll(regex, " "))
-                    .completeness(cellB.getStringCellValue().replaceAll(regex, " "))
-                    .dosage(cellC.getStringCellValue().replaceAll(regex, " "))
-                    .url(cellD.getStringCellValue())
-                    .build();
-            medicineList.add(medicine);
+//            Medicine medicine = Medicine.builder()
+//                    .name(name.replaceAll(regex, " "))
+//                    .completeness(cellB.getStringCellValue().replaceAll(regex, " "))
+//                    .dosage(cellC.getStringCellValue().replaceAll(regex, " "))
+//                    .url(cellD.getStringCellValue())
+//                    .build();
+//            medicineList.add(medicine);
             //medicineList.
         }
         // Закрываем файл
@@ -105,7 +104,7 @@ public class ExcelWork {
             XSSFCell cell41 = row1.createCell(3);
             cell11.setCellValue(medicine.getName());
             cell21.setCellValue(medicine.getCompleteness());
-            cell31.setCellValue(medicine.getDosage());
+            //cell31.setCellValue(medicine.getDosage());
             cell41.setCellValue("max");
 
             XSSFRow row2 = sheet.createRow(2 + i);

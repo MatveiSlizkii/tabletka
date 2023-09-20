@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.tabletka.demo.norm.Medicine;
+import by.tabletka.demo.newVersion.models.Medicine;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -50,14 +50,14 @@ public class ExcelReader {
             if (cellB.getStringCellValue().isEmpty() && cellC.getStringCellValue().isEmpty()) {
                 continue;
             }
-            Medicine medicine = Medicine.builder()
-                    .name(name.replaceAll(regex, " "))
-                    .completeness(cellB.getStringCellValue().replaceAll(regex, " "))
-                    .dosage(cellC.getStringCellValue().replaceAll(regex, " "))
-                    .url(cellD.getStringCellValue())
-                    .build();
-            medicineList.add(medicine);
-            System.out.println(j + " " + medicine);
+//            Medicine medicine = Medicine.builder()
+//                    .name(name.replaceAll(regex, " "))
+//                    .completeness(cellB.getStringCellValue().replaceAll(regex, " "))
+//                    .dosage(cellC.getStringCellValue().replaceAll(regex, " "))
+//                    .url(cellD.getStringCellValue())
+//                    .build();
+//            medicineList.add(medicine);
+//            System.out.println(j + " " + medicine);
             j++;
             //medicineList.
         }

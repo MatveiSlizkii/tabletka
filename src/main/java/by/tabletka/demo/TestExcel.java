@@ -1,6 +1,6 @@
 package by.tabletka.demo;
 
-import by.tabletka.demo.norm.Medicine;
+import by.tabletka.demo.newVersion.models.Medicine;
 
 import java.io.IOException;
 import java.util.List;
