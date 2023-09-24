@@ -1,11 +1,8 @@
 package by.tabletka.demo.newVersion;
 
-import by.tabletka.demo.ExcelWork;
 import by.tabletka.demo.newVersion.models.Medicine;
 import by.tabletka.demo.newVersion.models.Region;
 import by.tabletka.demo.newVersion.models.WidePrice;
-import by.tabletka.demo.newVersion.service.DataService;
-import by.tabletka.demo.newVersion.service.ExcelService;
 import by.tabletka.demo.newVersion.service.impl.MainExcelService;
 import by.tabletka.demo.newVersion.service.impl.TabletkaDataService;
 
@@ -13,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class mainClass {
+public class mainClassRegion {
     public static void main(String[] args) {
         MainExcelService excelService = new MainExcelService();
         TabletkaDataService dataService = new TabletkaDataService();
@@ -31,28 +28,42 @@ public class mainClass {
         });
 
         //Наполняем в препараты пустые значения регионов
-        List<WidePrice> widePrices = new ArrayList<>();
-        widePrices.add(0, new WidePrice(Region.ALL_REGIONS));
-        widePrices.add(1, new WidePrice(Region.BREST));
-        widePrices.add(2, new WidePrice(Region.VITEBSK));
-        widePrices.add(3, new WidePrice(Region.GOMEL));
-        widePrices.add(4, new WidePrice(Region.GRODNO));
-        widePrices.add(5, new WidePrice(Region.MINSK));
-        widePrices.add(6, new WidePrice(Region.MOGILEV));
-        widePrices.add(7, new WidePrice(Region.MINSKAYA_OBL));
-        medicineList.forEach((o)-> o.setPrices(widePrices));
+
 
 
         //начинаем наполнять данными все препараты
         long startAdd = System.currentTimeMillis();
         for (int i = 0; i < medicineList.size(); i++) {
+            List<WidePrice> widePrices = new ArrayList<>();
+            widePrices.add(0, new WidePrice(Region.ALL_REGIONS));
+            widePrices.add(1, new WidePrice(Region.BREST));
+            widePrices.add(2, new WidePrice(Region.VITEBSK));
+            widePrices.add(3, new WidePrice(Region.GOMEL));
+            widePrices.add(4, new WidePrice(Region.GRODNO));
+            widePrices.add(5, new WidePrice(Region.MINSK));
+            widePrices.add(6, new WidePrice(Region.MOGILEV));
+            widePrices.add(7, new WidePrice(Region.MINSKAYA_OBL));
+            medicineList.get(i).setPrices(widePrices);
+
+
+
             medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.ALL_REGIONS));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.BREST));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.VITEBSK));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.GOMEL));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.GRODNO));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.MINSK));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.MOGILEV));
+            medicineList.set(i, dataService.addMainData(medicineList.get(i), Region.MINSKAYA_OBL));
+            System.out.println( i + 1 + " " +medicineList.get(i).getName() + " обработано");
+
         }
         long finishAdd = System.currentTimeMillis();
         long delta = finishAdd - startAdd;
         System.out.println("Время на внесение " + nameMedicine.size() + " препаратов заняло " + delta + " миллисекунд");
+        System.out.println(medicineList);
         //заполняем таблицы конечную
-        excelService.createExcelTable(medicineList);
+        excelService.createExcelWithRegion(medicineList);
 
     }
 

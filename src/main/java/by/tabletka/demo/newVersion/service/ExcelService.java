@@ -11,14 +11,21 @@ public interface ExcelService {
      *             если нет то указывает полный пусть к файлу включая сам файл и его расширение)
      * @return
      */
-    List<String> reader (String path);
+    List<Medicine> reader (String path);
 
 
 
     /**
      * Сохраняет все полученные данные в Excel таблицу
-     * @param medicineLists лист препаратов с уже заполненными датами
+     * @param medicineList лист препаратов с уже заполненными датами ПО ПАРАМЕТРУ "ВСЕ РЕГИОНЫ"
      * @return возвращает отчет об операции
      */
-    String createExcelTable (List<List<Medicine>> medicineLists);
+    String createExcelTable (List<Medicine> medicineList);
+
+    /**
+     *
+     * @param medicineList лист препаратов с уже заполненными датами с разбивкой по всем регионам
+     * @return возвращает отчет об операции
+     */
+    String createExcelWithRegion (List<Medicine> medicineList);
 }

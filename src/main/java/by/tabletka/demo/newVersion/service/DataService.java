@@ -1,6 +1,7 @@
 package by.tabletka.demo.newVersion.service;
 
 import by.tabletka.demo.newVersion.models.Medicine;
+import by.tabletka.demo.newVersion.models.Region;
 
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,11 @@ public interface DataService {
     Map<Boolean, List<String>> isCorrectData (List<String> nameMedicine);
 
     /**
-     * Заполняет все данные через tabletka.by
-     * @param nameMedicine название препарата
+     * Заполняет все данные через tabletka.by ОДНОЙ ТАБЛЕТКИ ОДНОГО СОРТА
+     * @param rawMedicine главное чтобы в классе содержалось имя, клаассификация, производитель, страна производства
      * @return лист с данными всех товарных позиций с данным наименованием
      */
-    List<Medicine> addData (String nameMedicine);
+    Medicine addMainData (Medicine rawMedicine, Region region);
+
+    Medicine addDataRegion (Medicine rawMedicine);
 }

@@ -69,14 +69,14 @@ public class CreateExcelTableRawMain {
                 cell31.setCellValue(medicine.getFabricator());
                 cell41.setCellValue(medicine.getCountryFabricator());
                 cell51.setCellValue("min");
-                cell61.setCellValue(medicine.getMinPrice());
+                cell61.setCellValue(medicine.getPrices().get(0).getMinPrice());
 
                 XSSFRow row2 = sheet.createRow(2 + i);
                 XSSFCell cell511 = row2.createCell(3);
                 XSSFCell cell611 = row2.createCell(3);
 
                 cell511.setCellValue("max");
-                cell611.setCellValue(medicine.getMaxPrice());
+                cell611.setCellValue(medicine.getPrices().get(0).getMaxPrice());
                 x++;
             }
 
