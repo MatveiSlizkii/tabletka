@@ -48,10 +48,13 @@ public class TabletkaDataService implements DataService {
             }
 
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
+                System.out.println(i+1 + " " + nameMedicine.get(i) + " Успешно проверено");
 
             } else {
                 isCorrect = false;
                 incorrectData.add(nameMedicine.get(i));
+                System.out.println(i+1 + " " + nameMedicine.get(i) + " Успешно проверено");
+
             }
         }
         Map<Boolean, List<String>> result = new HashMap<>();
@@ -95,7 +98,6 @@ public class TabletkaDataService implements DataService {
             TripleRawData tripleRawDataName = findName(rawResponse, rawMedicine);
             rawResponse = tripleRawDataName.getRawHTML();
             if (!tripleRawDataName.isFind) continue;
-            rawMedicine.setName(tripleRawDataName.getData());
 
             TripleRawData tripleRawDataCompleteness = findCompleteness(rawResponse, rawMedicine);
             rawResponse = tripleRawDataCompleteness.getRawHTML();
@@ -221,6 +223,9 @@ public class TabletkaDataService implements DataService {
         if (name.charAt(0) == ' ') name = name.substring(1);
         if (name.charAt(name.length()-1) == ' ') {
             name = name.substring(0, name.length()-1);
+        }
+        if (!name.toLowerCase().contains(medicine.getName().toLowerCase())){
+            return new TripleRawData(false, rawHTML, name);
         }
         //System.out.println(name);
         return new TripleRawData(true, rawHTML, name);

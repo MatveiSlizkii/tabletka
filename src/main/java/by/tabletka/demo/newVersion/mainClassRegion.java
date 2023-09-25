@@ -15,7 +15,7 @@ public class mainClassRegion {
         MainExcelService excelService = new MainExcelService();
         TabletkaDataService dataService = new TabletkaDataService();
         //забрали с екселя имена препаратов
-        List<Medicine> medicineList = excelService.reader("table.xlsx");
+        List<Medicine> medicineList = excelService.reader("мое.xlsx");
         System.out.println(medicineList);
         //проверяем все ли они подходят под ссылку
         List<String> nameMedicine = new ArrayList<>();
