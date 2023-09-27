@@ -18,14 +18,14 @@ public class mainClassRegion {
         List<Medicine> medicineList = excelService.reader("мое.xlsx");
         System.out.println(medicineList);
         //проверяем все ли они подходят под ссылку
-        List<String> nameMedicine = new ArrayList<>();
-        medicineList.forEach((o)-> nameMedicine.add(o.getName()));
-        Map<Boolean, List<String>> isCorrect = dataService.isCorrectData(nameMedicine);
-        isCorrect.forEach((bool, list) -> {
-            if (bool == true) {
-                System.out.println("Проверка вносимых препаратов прошла успешно");
-            } else System.out.println("Есть проблемы с индентификацией некоторых препаратов: " + list.toString());
-        });
+//        List<String> nameMedicine = new ArrayList<>();
+//        medicineList.forEach((o)-> nameMedicine.add(o.getName()));
+//        Map<Boolean, List<String>> isCorrect = dataService.isCorrectData(nameMedicine);
+//        isCorrect.forEach((bool, list) -> {
+//            if (bool == true) {
+//                System.out.println("Проверка вносимых препаратов прошла успешно");
+//            } else System.out.println("Есть проблемы с индентификацией некоторых препаратов: " + list.toString());
+//        });
 
         //Наполняем в препараты пустые значения регионов
 
@@ -60,7 +60,7 @@ public class mainClassRegion {
         }
         long finishAdd = System.currentTimeMillis();
         long delta = finishAdd - startAdd;
-        System.out.println("Время на внесение " + nameMedicine.size() + " препаратов заняло " + delta + " миллисекунд");
+        System.out.println("Время на внесение " + medicineList.size() + " препаратов заняло " + delta + " миллисекунд");
         System.out.println(medicineList);
         //заполняем таблицы конечную
         excelService.createExcelWithRegion(medicineList);

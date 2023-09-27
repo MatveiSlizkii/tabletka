@@ -13,6 +13,8 @@ public interface ExcelService {
      */
     List<Medicine> reader (String path);
 
+    void checkURL (String path);
+
 
 
     /**

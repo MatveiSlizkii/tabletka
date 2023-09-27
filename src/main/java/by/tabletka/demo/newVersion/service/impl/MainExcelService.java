@@ -2,13 +2,9 @@ package by.tabletka.demo.newVersion.service.impl;
 
 import by.tabletka.demo.newVersion.models.Medicine;
 import by.tabletka.demo.newVersion.service.ExcelService;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.common.usermodel.HyperlinkType;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
-import org.openqa.selenium.support.Color;
-import org.openqa.selenium.support.Colors;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -48,21 +44,24 @@ public class MainExcelService implements ExcelService {
         XSSFSheet sheet = workbook.getSheetAt(0);
         // Итерируемся по строкам листа
 
-        for (int rowNum = 0; rowNum <= sheet.getLastRowNum(); rowNum++) {
+        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
             // Получаем строку
             XSSFRow row = sheet.getRow(rowNum);
 
             // Получаем ячейки в строке
-            XSSFCell cellA = row.getCell(0);
             XSSFCell cellB = row.getCell(1);
             XSSFCell cellC = row.getCell(2);
             XSSFCell cellD = row.getCell(3);
+            XSSFCell cellE = row.getCell(4);
+            XSSFCell cellG = row.getCell(6);
+
             String regex = "\\s{2,}";
             Medicine medicine = Medicine.builder()
-                    .name(cellA.getStringCellValue().replaceAll(regex, " "))
-                    .completeness(cellB.getStringCellValue().replaceAll(regex, " "))
-                    .fabricator(cellC.getStringCellValue().replaceAll(regex, " "))
-                    .countryFabricator(cellD.getStringCellValue().replaceAll(regex, " "))
+                    .name(cellB.getStringCellValue().replaceAll(regex, " "))
+                    .completeness(cellC.getStringCellValue().replaceAll(regex, " "))
+                    .fabricator(cellD.getStringCellValue().replaceAll(regex, " "))
+                    .countryFabricator(cellE.getStringCellValue().replaceAll(regex, " "))
+                    .defaultURL(cellG.getStringCellValue())
                     .build();
 
             medicineList.add(medicine);
@@ -71,6 +70,95 @@ public class MainExcelService implements ExcelService {
         return medicineList;
     }
 
+    @Override
+    public void checkURL(String path) {
+
+        String filePath = path;
+
+        // Открываем файл
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(filePath);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Программа не смогла найти запрашиваемый файл");
+        }
+
+        // Создаем объект рабочей книги
+        XSSFWorkbook workbook = null;
+        try {
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException("Программа не смогла считать файл возможно вы указали не Excel файл");
+        }
+
+        // Получаем первый лист
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        // Итерируемся по строкам листа
+
+        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+            // Получаем строку
+            XSSFRow row = sheet.getRow(rowNum);
+
+            // Получаем ячейки в строке
+            XSSFCell cellB = row.getCell(1);
+            String defaultURL;
+
+            try {
+                XSSFCell cellG = row.getCell(6);
+                defaultURL = cellG.getStringCellValue();
+
+            } catch (NullPointerException e) {
+                defaultURL = null;
+
+            }
+
+            if (defaultURL.isEmpty() || defaultURL == null) {
+                String nameMedicine = cellB.getStringCellValue();
+                nameMedicine = nameMedicine.replaceAll("\\s{2,}", " ");
+
+                if (nameMedicine.charAt(0) == ' ') nameMedicine = nameMedicine.substring(1, nameMedicine.length());
+                if (nameMedicine.charAt(nameMedicine.length() - 1) == ' ')
+                    nameMedicine = nameMedicine.substring(0, nameMedicine.length() - 1);
+
+
+
+                String mainURL = "https://tabletka.by/search?request=" +
+                        nameMedicine.replace(" ", "%C2%A0");
+
+                Hyperlink hyperlink = workbook.getCreationHelper().createHyperlink(HyperlinkType.URL);
+                hyperlink.setAddress(mainURL);
+
+                CellStyle cellStyle = workbook.createCellStyle();
+
+                // Установка цвета текста
+                Font font = workbook.createFont();
+                font.setColor(IndexedColors.BLUE.index);
+                cellStyle.setFont(font);
+                cellStyle.setBorderBottom(BorderStyle.MEDIUM);
+
+                XSSFCell cellG = row.getCell(6);
+                cellG.setCellValue(mainURL);
+                cellG.setHyperlink(hyperlink);
+                cellG.setCellStyle(cellStyle);
+
+                System.out.println("программа добавила ссылку на препарат " + rowNum + " " + nameMedicine);
+                System.out.println("для подстраховки прошу проверить является ли добавленная ссылка рабочей");
+                System.out.println("если нет исправьте, пожалуйста, вручную");
+
+            } else System.out.println("программа проверила успешно препарат c индексом " + rowNum);
+
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(path);
+            workbook.write(fos);
+            fos.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Программе не удалось сохранить изменения в исходный ексель," +
+                    " возможно он у Вас является открытым");
+        }
+
+    }
 
     @Override
     public String createExcelTable(List<Medicine> medicineList) {
@@ -209,14 +297,12 @@ public class MainExcelService implements ExcelService {
         styleBoldBotRight.setBorderRight(BorderStyle.THICK);
 
 
-
         // Создаем строку в листе
         XSSFRow row = sheet.createRow(0);
         sheet.setColumnWidth(0, 4000);
         sheet.setColumnWidth(1, 4000);
         sheet.setColumnWidth(2, 4000);
         sheet.setColumnWidth(12, 3000);
-
 
 
         // Добавляем ячейки в строку
@@ -295,7 +381,6 @@ public class MainExcelService implements ExcelService {
         styleGreen.setBorderRight(BorderStyle.THICK);
 
 
-
         XSSFCellStyle styleRed = workbook.createCellStyle();
         styleRed.setFillForegroundColor(IndexedColors.RED.getIndex());
         styleRed.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -343,14 +428,13 @@ public class MainExcelService implements ExcelService {
             grodnoCell.setCellValue(medicine.getPrices().get(4).getMinPrice());
             //grodnoCell.setCellStyle(styleBot);
             minskCell.setCellValue(medicine.getPrices().get(5).getMinPrice());
-           // minskCell.setCellStyle(styleBot);
+            // minskCell.setCellStyle(styleBot);
             mogilevCell.setCellValue(medicine.getPrices().get(6).getMinPrice());
             //mogilevCell.setCellStyle(styleBot);
             minskayaOblCell.setCellValue(medicine.getPrices().get(7).getMinPrice());
             minskayaOblCell.setCellStyle(styleRight);
             allRegionCell.setCellValue(medicine.getPrices().get(0).getMinPrice());
             allRegionCell.setCellStyle(styleRight);
-
 
 
             XSSFRow row2 = sheet.createRow(x + 1 + j);

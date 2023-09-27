@@ -24,5 +24,7 @@ public interface DataService {
      */
     Medicine addMainData (Medicine rawMedicine, Region region);
 
-    Medicine addDataRegion (Medicine rawMedicine);
+    String createDefaultURL (String nameMedicine);
+
+
 }
