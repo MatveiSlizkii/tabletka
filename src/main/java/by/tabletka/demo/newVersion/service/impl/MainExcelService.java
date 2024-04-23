@@ -112,7 +112,7 @@ public class MainExcelService implements ExcelService {
 
             }
 
-            if (defaultURL.isEmpty() || defaultURL == null) {
+            if (defaultURL == null || defaultURL.isEmpty()) {
                 String nameMedicine = cellB.getStringCellValue();
                 nameMedicine = nameMedicine.replaceAll("\\s{2,}", " ");
 
@@ -419,20 +419,14 @@ public class MainExcelService implements ExcelService {
             cell41.setCellStyle(styleAutoWrapText);
             cell51.setCellValue("min");
             cell51.setCellStyle(styleGreen);
-            brestCell.setCellValue(medicine.getPrices().get(1).getMinPrice());
-            //brestCell.setCellStyle(styleBot);
-            vitebskCell.setCellValue(medicine.getPrices().get(2).getMinPrice());
-            //vitebskCell.setCellStyle(styleBot);
-            gomelCell.setCellValue(medicine.getPrices().get(3).getMinPrice());
-            //gomelCell.setCellStyle(styleBot);
-            grodnoCell.setCellValue(medicine.getPrices().get(4).getMinPrice());
-            //grodnoCell.setCellStyle(styleBot);
-            minskCell.setCellValue(medicine.getPrices().get(5).getMinPrice());
-            // minskCell.setCellStyle(styleBot);
-            mogilevCell.setCellValue(medicine.getPrices().get(6).getMinPrice());
-            //mogilevCell.setCellStyle(styleBot);
-            minskayaOblCell.setCellValue(medicine.getPrices().get(7).getMinPrice());
-            minskayaOblCell.setCellStyle(styleRight);
+//            brestCell.setCellValue(medicine.getPrices().get(1).getMinPrice());
+//            vitebskCell.setCellValue(medicine.getPrices().get(2).getMinPrice());
+//            gomelCell.setCellValue(medicine.getPrices().get(3).getMinPrice());
+//            grodnoCell.setCellValue(medicine.getPrices().get(4).getMinPrice());
+//            minskCell.setCellValue(medicine.getPrices().get(5).getMinPrice());
+//            mogilevCell.setCellValue(medicine.getPrices().get(6).getMinPrice());
+//            minskayaOblCell.setCellValue(medicine.getPrices().get(7).getMinPrice());
+//            minskayaOblCell.setCellStyle(styleRight);
             allRegionCell.setCellValue(medicine.getPrices().get(0).getMinPrice());
             allRegionCell.setCellStyle(styleRight);
 
@@ -462,38 +456,38 @@ public class MainExcelService implements ExcelService {
 
             cell511.setCellValue("max");
             cell511.setCellStyle(styleRed);
-            brestCell1.setCellValue(medicine.getPrices().get(1).getMaxPrice());
-            brestCell1.setCellStyle(styleBot);
-            vitebskCe1ll.setCellValue(medicine.getPrices().get(2).getMaxPrice());
-            vitebskCe1ll.setCellStyle(styleBot);
-            gomelCell1.setCellValue(medicine.getPrices().get(3).getMaxPrice());
-            gomelCell1.setCellStyle(styleBot);
-            grodnoCel1l.setCellValue(medicine.getPrices().get(4).getMaxPrice());
-            grodnoCel1l.setCellStyle(styleBot);
-            minskCell1.setCellValue(medicine.getPrices().get(5).getMaxPrice());
-            minskCell1.setCellStyle(styleBot);
-            mogilevCe1ll.setCellValue(medicine.getPrices().get(6).getMaxPrice());
-            mogilevCe1ll.setCellStyle(styleBot);
-            minskayaO1blCell.setCellValue(medicine.getPrices().get(7).getMaxPrice());
-            minskayaO1blCell.setCellStyle(styleRightBot);
+//            brestCell1.setCellValue(medicine.getPrices().get(1).getMaxPrice());
+//            brestCell1.setCellStyle(styleBot);
+//            vitebskCe1ll.setCellValue(medicine.getPrices().get(2).getMaxPrice());
+//            vitebskCe1ll.setCellStyle(styleBot);
+//            gomelCell1.setCellValue(medicine.getPrices().get(3).getMaxPrice());
+//            gomelCell1.setCellStyle(styleBot);
+//            grodnoCel1l.setCellValue(medicine.getPrices().get(4).getMaxPrice());
+//            grodnoCel1l.setCellStyle(styleBot);
+//            minskCell1.setCellValue(medicine.getPrices().get(5).getMaxPrice());
+//            minskCell1.setCellStyle(styleBot);
+//            mogilevCe1ll.setCellValue(medicine.getPrices().get(6).getMaxPrice());
+//            mogilevCe1ll.setCellStyle(styleBot);
+//            minskayaO1blCell.setCellValue(medicine.getPrices().get(7).getMaxPrice());
+//            minskayaO1blCell.setCellStyle(styleRightBot);
             allRegion1Cell.setCellValue(medicine.getPrices().get(0).getMaxPrice());
             allRegion1Cell.setCellStyle(styleRightBot);
 
             //перекраска максимальных значений
-            if (medicine.getPrices().get(1).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                brestCell1.setCellStyle(styleYellowLeft);
-            if (medicine.getPrices().get(2).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                vitebskCe1ll.setCellStyle(styleYellow);
-            if (medicine.getPrices().get(3).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                gomelCell1.setCellStyle(styleYellow);
-            if (medicine.getPrices().get(4).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                grodnoCel1l.setCellStyle(styleYellow);
-            if (medicine.getPrices().get(5).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                minskCell1.setCellStyle(styleYellow);
-            if (medicine.getPrices().get(6).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                mogilevCe1ll.setCellStyle(styleYellow);
-            if (medicine.getPrices().get(7).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
-                minskayaO1blCell.setCellStyle(styleYellowRight);
+//            if (medicine.getPrices().get(1).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                brestCell1.setCellStyle(styleYellowLeft);
+//            if (medicine.getPrices().get(2).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                vitebskCe1ll.setCellStyle(styleYellow);
+//            if (medicine.getPrices().get(3).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                gomelCell1.setCellStyle(styleYellow);
+//            if (medicine.getPrices().get(4).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                grodnoCel1l.setCellStyle(styleYellow);
+//            if (medicine.getPrices().get(5).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                minskCell1.setCellStyle(styleYellow);
+//            if (medicine.getPrices().get(6).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                mogilevCe1ll.setCellStyle(styleYellow);
+//            if (medicine.getPrices().get(7).getMaxPrice().equals(medicine.getPrices().get(0).getMaxPrice()))
+//                minskayaO1blCell.setCellStyle(styleYellowRight);
 
             x++;
         }
