@@ -42,8 +42,8 @@ public class MainExcelService implements ExcelService {
 
         // Получаем первый лист
         XSSFSheet sheet = workbook.getSheetAt(0);
-        // Итерируемся по строкам листа
 
+        // Итерируемся по строкам листа
         for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
             // Получаем строку
             XSSFRow row = sheet.getRow(rowNum);
@@ -312,7 +312,7 @@ public class MainExcelService implements ExcelService {
         XSSFCell cell4 = row.createCell(3);
         XSSFCell cell5 = row.createCell(4);
 
-        XSSFCell br01 = row.createCell(5);
+        XSSFCell brest = row.createCell(5);
         XSSFCell vtb01 = row.createCell(6);
         XSSFCell gom03 = row.createCell(7);
         XSSFCell gr04 = row.createCell(8);
@@ -320,22 +320,22 @@ public class MainExcelService implements ExcelService {
         XSSFCell mog06 = row.createCell(10);
         XSSFCell minobl07 = row.createCell(11);
         XSSFCell allR00 = row.createCell(12);
-
+        XSSFCell allR01 = row.createCell(13);
         // Задаем значения ячейкам
         cell1.setCellValue("Торговое наименование");
         cell2.setCellValue("Комплект");
         cell3.setCellValue("Производитель");
         cell4.setCellValue("Страна производителя");
         cell5.setCellValue("Цена");
-        br01.setCellValue("Брест");
+        brest.setCellValue("Брест");
         vtb01.setCellValue("Витебск");
         gom03.setCellValue("Гомель");
         gr04.setCellValue("Гродно");
         mnsk05.setCellValue("Минск");
         mog06.setCellValue("Могилев");
         minobl07.setCellValue("Минская область");
-        allR00.setCellValue("Все регионы");
-
+        allR00.setCellValue("мин");
+        allR01.setCellValue("макс");
 
         // Задаем формат ячейкам
 
@@ -344,7 +344,7 @@ public class MainExcelService implements ExcelService {
         cell3.setCellStyle(styleBoldBot);
         cell4.setCellStyle(styleBoldBot);
         cell5.setCellStyle(styleBoldBotRight);
-        br01.setCellStyle(styleBoldBot);
+        brest.setCellStyle(styleBoldBot);
         vtb01.setCellStyle(styleBoldBot);
         gom03.setCellStyle(styleBoldBot);
         gr04.setCellStyle(styleBoldBot);

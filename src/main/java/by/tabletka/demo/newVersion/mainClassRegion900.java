@@ -15,9 +15,9 @@ public class mainClassRegion900 {
         TabletkaDataService dataService = new TabletkaDataService();
         //забрали с екселя имена препаратов
         //115 - мое12
-        //ЛП без контроля - ЛП без контроля
+        //ЛП без контроля - ЛП без контроля мое900 (с правками апрель 2024).xlsx
 
-        List<Medicine> medicineList = excelService.reader("мое900 (с правками апрель 2024).xlsx");
+        List<Medicine> medicineList = excelService.reader("мое12.xlsx");
         System.out.println(medicineList);
         //проверяем все ли они подходят под ссылку
 //        List<String> nameMedicine = new ArrayList<>();
